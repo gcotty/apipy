@@ -8,5 +8,5 @@ Rest API Functions (wsse auth)
 * Vendor specific implementation for header
 
 ## Python
-* Written to be used via command line: `python req_main.py my_request.json my_response.json`
+* Can be used via command line: `python req_main.py my_request.json my_response.json`
 * Included FTP class for convenience (for sFTP stuff I recommend using pysftp)
