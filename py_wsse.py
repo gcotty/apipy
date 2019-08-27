@@ -5,6 +5,42 @@ import uuid
 import hashlib
 import base64
 import requests
+import ftplib
+
+class FtpConn:
+    def __init__(self, host, user, passw):
+        self.host  = host
+        self.user  = user
+        self.passw = passw
+
+    def connect(self):
+        ftp = ftplib.FTP(self.host)
+        ftp.login(self.user, self.passw)
+        return ftp
+
+    def getFiles(filepath):
+        ftp = connect()
+
+        try:
+            ftp.retrbinary("RETR " + filepath, open(filepath, 'wb').write)
+        except:
+            print("Error downloading " + filepath)
+
+    def pushFiles(filepath):
+        ftp = connect()
+
+        try:
+            ftp.retrbinary("STOR " + filepath, open(filepath, 'rb').write)
+        except:
+            print("Error uploading " + filepath)
+
+    def removeFiles(filepath):
+        ftp = connect()
+
+        try:
+            ftp.delete(filepath)
+        except:
+            print("Error deleting " + filepath)
 
 def main(argv):
 
