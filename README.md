@@ -9,3 +9,4 @@ Rest API Functions (wsse auth)
 
 ## Python
 * Written to be used via command line: `python py_wsse.py my_request.json my_response.json`
+* Included FTP class for convenience
