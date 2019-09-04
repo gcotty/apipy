@@ -78,12 +78,11 @@ function generateWSSEHeader(user, secret) {
 // Parsing JSON data into Google Sheet cells...
 function copyJSON(data, sheetName, colIx, rowIx) {
   var ss = SpreadsheetApp.getActive().getSheetByName(sheetName);
-  var obj = JSON.stringify(data);
-  var jobj = JSON.parse(obj);
+  var obj = JSON.parse(data);
 
   var ix = 0;
-  while(jobj.report.metrics[ix] != undefined) {
-    ss.getRange(colIx+rowIx).setValue(jobj.report.metrics[ix]);
+  while(obj.report.metrics[ix] != undefined) {
+    ss.getRange(colIx+rowIx).setValue(obj.report.metrics[ix]);
 	rowIx++;
 	ix++;
   }
