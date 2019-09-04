@@ -2,7 +2,7 @@
 // API Post request with WSSE header
 //--------------------------------------------------------------------------
 // These functions are written to be executed via Google Apps Script and as
-// such contain classes specific to that implementation
+// such contain methods specific to that implementation
 //--------------------------------------------------------------------------
 
 function getReport(my_url, myReportJSON) {
@@ -76,19 +76,15 @@ function generateWSSEHeader(user, secret) {
 }
 
 // Parsing JSON data into Google Sheet cells...
-// Need to fix for example provided
-function parseJSON(sheetName, data, startRow, startCol) {
-  var cell;
-  var dataIndex;
-  var countsIndex;
-    
-  var data_sheet = SpreadsheetApp.getActive().getSheetByName(sheetName);
-  Logger.log(JSON.stringify(data));
-  
-  for(dataIndex = 0; dataIndex < 24; dataIndex++) {
-    for(countsIndex = 0; countsIndex < 4; countsIndex++) {
-      cell = data_sheet.getRange(startRow+dataIndex, startCol+countsIndex);
-      cell.setValue(data.report.data[dataIndex].counts[countsIndex]);
-    }
+function copyJSON(data, sheetName, colIx, rowIx) {
+  var ss = SpreadsheetApp.getActive().getSheetByName(sheetName);
+  var obj = JSON.stringify(data);
+  var jobj = JSON.parse(obj);
+
+  var ix = 0;
+  while(jobj.report.metrics[ix] != undefined) {
+    ss.getRange(colIx+rowIx).setValue(jobj.report.metrics[ix]);
+	rowIx++;
+	ix++;
   }
 }
